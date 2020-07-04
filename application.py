@@ -5,8 +5,10 @@ import pdb
 
 # write collection cleaning function
 PLAYERS = constants.PLAYERS
+TEAMS = constants.TEAMS
 
-def value_pair_cleaner(collection):
+
+def clean_data(collection):
     '''This is function that will take a collection and return a new collection
     it will clean up all the strings containing number and store them as integers
     in the new collection.
@@ -17,13 +19,34 @@ def value_pair_cleaner(collection):
         for key, value in dictionary.items():
             if key == 'height':
             #    pdb.set_trace()
-                dictionary[key] = value[1:3]
+                dictionary[key] = int(value[0:2])
             elif key == 'experience':
                 if value == 'YES':
                     dictionary[key] = True
                 else:
                     dictionary[key] = False
 
-            print('{}: {}'.format(key, value))
+def balance_teams(teams, players):
 
-value_pair_cleaner(PLAYERS)
+    allocated_teams = []
+    allocated_players = []
+
+    num_players_team = len(players) / len(teams)
+
+    for team in teams:
+        count = 0
+        # create a dictionary with team name and append 6 players data into a team
+        allocated_teams.append({'team name': '{}'.format(team)})
+        list = []
+        while count < num_players_team:
+            list.append(players.pop())
+            count += 1
+        allocated_players.append(list)
+
+    return allocated_players    
+
+
+clean_data(PLAYERS)
+balance_teams(TEAMS, PLAYERS)
+print(allocated_teams)
+print(len(allocated_players[0]))

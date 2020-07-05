@@ -43,8 +43,8 @@ def balance_teams(teams, players):
 
 def display_team_print(option, teams, players):
     option_index = option - 1
-    team_name = teams[option_index].values()
-
+    team_name = str(teams[option_index].values()).strip('[]')
+    players_string = []
     print(
         '''
         Team: {} Stats
@@ -52,11 +52,12 @@ def display_team_print(option, teams, players):
         Total players: {}
 
         Players on Team:
-
         '''.format(team_name, len(players[option_index]) )
         )
     for player in players[option_index]:
-        print('* {}'.format(player['name']))
+        players_string.append((player['name']))
+
+    print(', '.join(players_string))
 
 
 if __name__ == "__main__":
@@ -74,7 +75,7 @@ if __name__ == "__main__":
     if display_stats == 1:
         list_number = 1
         for team in allocated_teams:
-            print('{}) {}'.format(list_number, team.values()))
+            print('{}) {}'.format(list_number, str(team.values()).strip('[]')))
             list_number += 1
         display_team = input("Enter an option > ")
         display_team_print(display_team, allocated_teams, allocated_players)

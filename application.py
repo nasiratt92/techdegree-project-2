@@ -34,7 +34,7 @@ def balance_teams(teams, players):
     for team in teams:
         count = 0
         # create a dictionary with team name and append 6 players data into a team
-        allocated_teams.append({'team name': '{}'.format(team)})
+        allocated_teams.append('{}'.format(team))
         list = []
         copy_of_players = players[::]
 
@@ -45,7 +45,7 @@ def balance_teams(teams, players):
 
 def display_team_print(option, teams, players):
     option_index = option - 1
-    team_name = str(teams[option_index].values()).strip('[]')
+    team_name = str(teams[option_index])
     players_string = []
     print(
         '''
@@ -73,12 +73,46 @@ if __name__ == "__main__":
     1) Display Team Stats
     2) Quit
     """)
-    display_stats = int(input("Enter an option > "))
+    #while True:
+    valid_input = False
+    while not valid_input:
+        display_stats = input("Enter an option > ")
+        try:
+            display_stats = int(display_stats)
+        except ValueError:
+            print("ValueError: please enter 1 or 2 ")
+        else:
+            if display_stats != 1 and display_stats != 2:
+                raise Exception("Sorry, numbers 1 or 2 are the only availible options")
+                continue
+            else:
+                valid_input = True
+
     if display_stats == 1:
         list_number = 1
         for team in allocated_teams:
-            print('{}) {}'.format(list_number, str(team.values()).strip('[]')))
+            print('{}) {}'.format(list_number, team))
             list_number += 1
-        display_team = int(input("Enter an option > "))
+        #display_team = int(input("Enter an option > "))
+
+        valid_input = False
+        number_of_teams = len(allocated_teams)
+        while not valid_input:
+            display_team = int(input("Enter an option > "))
+            try:
+                display_stats = int(display_stats)
+            except ValueError:
+                print("ValueError: please enter a number between 1 to {}".format( number_of_teams))
+            else:
+                if display_stats <= 0 or display_stats > number_of_teams:
+                    raise Exception("Sorry, only numbers between 1 to {} are the availible options".format(number_of_teams))
+                    continue
+                else:
+                    valid_input = True
+
+
+
         display_team_print(display_team, allocated_teams, allocated_players)
         print('Press ENTER to continue...')
+    elif display_stats == 2:
+        exit()

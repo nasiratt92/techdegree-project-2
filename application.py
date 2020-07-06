@@ -1,9 +1,5 @@
 import constants
-import pdb
-from pynput.keyboard import Key, Controller
-# dunder_main at the end
 
-# write collection cleaning function
 PLAYERS = constants.PLAYERS
 TEAMS = constants.TEAMS
 allocated_teams = []
@@ -15,6 +11,7 @@ def clean_data(collection):
      store them as integer
     And if the experience value is Yes/NO it will save the value as true/false
     '''
+
     for dictionary in collection:
 
         for key, value in dictionary.items():
@@ -36,8 +33,10 @@ def balance_teams(teams, players):
         # create a dictionary with team name and append 6 players data into a team
         allocated_teams.append({'team name': '{}'.format(team)})
         list = []
+        copy_of_players = players[::]
+
         while count < num_players_team:
-            list.append(players.pop())
+            list.append(copy_of_players.pop())
             count += 1
         allocated_players.append(list)
 
@@ -61,9 +60,9 @@ def display_team_print(option, teams, players):
 
 
 if __name__ == "__main__":
-    balance_teams(TEAMS, PLAYERS)
     clean_data(PLAYERS)
-    keyboard = Controller()
+    balance_teams(TEAMS, PLAYERS)
+
     print('BASKETBALL TEAM STATS TOOL')
     print('\n---- MENU----')
     print("""

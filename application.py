@@ -1,7 +1,7 @@
 import constants
 
-PLAYERS = constants.PLAYERS
-TEAMS = constants.TEAMS
+PLAYERS = constants.PLAYERS[::]
+TEAMS = constants.TEAMS[::]
 allocated_teams = []
 allocated_players = []
 

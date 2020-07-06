@@ -1,7 +1,10 @@
 import constants
+from copy import deepcopy
 
-PLAYERS = constants.PLAYERS[::]
-TEAMS = constants.TEAMS[::]
+PLAYERS = deepcopy(constants.PLAYERS)
+
+TEAMS = deepcopy(constants.TEAMS)
+
 allocated_teams = []
 allocated_players = []
 

@@ -73,12 +73,12 @@ if __name__ == "__main__":
     1) Display Team Stats
     2) Quit
     """)
-    display_stats = input("Enter an option > ")
+    display_stats = int(input("Enter an option > "))
     if display_stats == 1:
         list_number = 1
         for team in allocated_teams:
             print('{}) {}'.format(list_number, str(team.values()).strip('[]')))
             list_number += 1
-        display_team = input("Enter an option > ")
+        display_team = int(input("Enter an option > "))
         display_team_print(display_team, allocated_teams, allocated_players)
         print('Press ENTER to continue...')

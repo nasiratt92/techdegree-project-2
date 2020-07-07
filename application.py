@@ -7,6 +7,8 @@ TEAMS = deepcopy(constants.TEAMS)
 
 allocated_teams = []
 allocated_players = []
+players_string = []
+user_input = 0
 
 def clean_data(collection):
     '''This is function that will take a collection and
@@ -46,7 +48,7 @@ def balance_teams(teams, players):
 def display_team_print(option, teams, players):
     option_index = option - 1
     team_name = str(teams[option_index])
-    players_string = []
+
     print(
         '''
         Team: {} Stats
@@ -61,6 +63,28 @@ def display_team_print(option, teams, players):
 
     print(', '.join(players_string))
 
+def get_int_from_user(option_text, max_int):
+    max_int += 1
+    # I am using list comprehensions here to generate the string ! Yes!
+    strings_list = [str(integer) for integer in range(1, max_int)]
+    options_string = ", ".join(strings_list)
+
+    valid_input = False
+    while not valid_input:
+
+        try:
+            user_input = int(option_text)
+        except ValueError:
+            print("ValueError: please enter one of the following: {}".format(options_string))
+        else:
+            if user_input <= 0 or user_input > max_int:
+                # use range function to list options
+                raise Exception("Sorry, only numbers {} are the availible options".format(options_string))
+                continue
+            else:
+                valid_input = True
+
+
 
 if __name__ == "__main__":
     clean_data(PLAYERS)
@@ -73,46 +97,23 @@ if __name__ == "__main__":
     1) Display Team Stats
     2) Quit
     """)
-    #while True:
-    valid_input = False
-    while not valid_input:
-        display_stats = input("Enter an option > ")
-        try:
-            display_stats = int(display_stats)
-        except ValueError:
-            print("ValueError: please enter 1 or 2 ")
-        else:
-            if display_stats != 1 and display_stats != 2:
-                raise Exception("Sorry, numbers 1 or 2 are the only availible options")
-                continue
-            else:
-                valid_input = True
+    user_input = input("Enter an option > ")
+    get_int_from_user(user_input, 2)
 
-    if display_stats == 1:
+
+    if user_input == 1:
         list_number = 1
         for team in allocated_teams:
             print('{}) {}'.format(list_number, team))
             list_number += 1
-        #display_team = int(input("Enter an option > "))
 
-        valid_input = False
-        number_of_teams = len(allocated_teams)
-        while not valid_input:
-            display_team = int(input("Enter an option > "))
-            try:
-                display_stats = int(display_stats)
-            except ValueError:
-                print("ValueError: please enter a number between 1 to {}".format( number_of_teams))
-            else:
-                if display_stats <= 0 or display_stats > number_of_teams:
-                    raise Exception("Sorry, only numbers between 1 to {} are the availible options".format(number_of_teams))
-                    continue
-                else:
-                    valid_input = True
+        display_team = input("Enter an option > ")
 
-
+        get_int_from_user(display_team, len(allocated_teams))
 
         display_team_print(display_team, allocated_teams, allocated_players)
+
         print('Press ENTER to continue...')
-    elif display_stats == 2:
+
+    elif user_input == 2:
         exit()

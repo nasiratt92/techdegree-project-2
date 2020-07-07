@@ -63,19 +63,23 @@ def display_team_print(option, teams, players):
 
     print(', '.join(players_string))
 
-def get_int_from_user(option_text, max_int):
+def get_int_from_user(max_int):
+    #I am adding 1 to the max_int so I can get the end index for the the range() function
     max_int += 1
     # I am using list comprehensions here to generate the string ! Yes!
+
     strings_list = [str(integer) for integer in range(1, max_int)]
+
     options_string = ", ".join(strings_list)
 
     valid_input = False
     while not valid_input:
-
+        user_input = input("Enter an option > ")
         try:
-            user_input = int(option_text)
+            user_input = int(user_input)
         except ValueError:
             print("ValueError: please enter one of the following: {}".format(options_string))
+
         else:
             if user_input <= 0 or user_input > max_int:
                 # use range function to list options
@@ -83,8 +87,7 @@ def get_int_from_user(option_text, max_int):
                 continue
             else:
                 valid_input = True
-
-
+    return user_input
 
 if __name__ == "__main__":
     clean_data(PLAYERS)
@@ -97,19 +100,15 @@ if __name__ == "__main__":
     1) Display Team Stats
     2) Quit
     """)
-    user_input = input("Enter an option > ")
-    get_int_from_user(user_input, 2)
 
+    user_input = get_int_from_user(2)
 
     if user_input == 1:
         list_number = 1
         for team in allocated_teams:
             print('{}) {}'.format(list_number, team))
             list_number += 1
-
-        display_team = input("Enter an option > ")
-
-        get_int_from_user(display_team, len(allocated_teams))
+        display_team = get_int_from_user(len(allocated_teams))
 
         display_team_print(display_team, allocated_teams, allocated_players)
 

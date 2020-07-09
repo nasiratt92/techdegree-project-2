@@ -32,14 +32,15 @@ def clean_data(collection):
 def balance_teams(teams, players):
 
     num_players_team = len(players) / len(teams)
+    print('i am here')
+    print(num_players_team)
 
+    copy_of_players = deepcopy(players)
     for team in teams:
         count = 0
         # create a dictionary with team name and append 6 players data into a team
         allocated_teams.append('{}'.format(team))
         list = []
-        copy_of_players = players[::]
-
         while count < num_players_team:
             list.append(copy_of_players.pop())
             count += 1
@@ -81,14 +82,14 @@ def get_int_from_user(max_int):
             print("ValueError: please enter one of the following: {}".format(options_string))
 
         else:
-            if user_input <= 0 or user_input > max_int:
+            if user_input > 0 and user_input <= max_int:
                 # use range function to list options
-                raise Exception("Sorry, only numbers {} are the availible options".format(options_string))
-                continue
-            else:
-                valid_input = True
-    return user_input
 
+                valid_input = True
+
+            else:
+                print("Sorry, only numbers {} are the availible options".format(options_string))
+    return user_input
 if __name__ == "__main__":
     clean_data(PLAYERS)
     balance_teams(TEAMS, PLAYERS)
